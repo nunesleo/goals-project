@@ -1,19 +1,23 @@
 import mongoose from "mongoose";
 
-const goalSchema = mongoose.Schema(
+const userSchema = mongoose.Schema(
     {
         name: {
             type: String,
             required: true,
         },
-        description: {
-            type: String,
+        contributionPoints: {
+            type: Number,
             required: true,
         },
-        contributions: [
+        crowns: {
+            type: Number,
+            required: true,
+        },
+        goals: [
             {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "Contribution",
+                ref: "Goal",
             },
         ],
     },
@@ -22,4 +26,4 @@ const goalSchema = mongoose.Schema(
     }
 );
 
-export const Goal = mongoose.model('Goal', goalSchema);
+export const User = mongoose.model('User', userSchema);
