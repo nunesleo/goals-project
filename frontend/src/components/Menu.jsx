@@ -1,20 +1,23 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCrown, faDiceD6, faHouse } from '@fortawesome/free-solid-svg-icons';
 
 const Menu = () => {
     return (
-        <div className="w-full p-2 flex flex-row bg-gray-100 shadow-md space-x-2">
+        <div className="w-full py-2 px-8 flex flex-row bg-[#B36EF4] shadow-md space-x-2">
             <Link to="/">
-                <button className="bg-gray-300 rounded-md flex">
-                    <p className="px-2 py-1 hover:underline">Home</p>
+                <button className="flex flex-row items-center">
+                    <FontAwesomeIcon icon={faHouse} color="white" />
+                    <p className="px-2 py-1 hover:underline text-white"> Home</p>
                 </button>
             </Link>
             <div className="flex flex-grow"></div>
-            <button className="bg-gray-300 rounded-md flex">
-                <p className="px-2 py-1">Contribution Points: XXX</p>
+            <button className="bg-white rounded-md flex flex-row">
+                <p className="px-2 py-1 text-[#B36EF4]"><FontAwesomeIcon icon={faDiceD6} color="#B36EF4" /> 250</p>
             </button>
-            <button className="bg-gray-300 rounded-md flex">
-                <p className="px-2 py-1">Crowns: XXX</p>
+            <button className="bg-white rounded-md flex flex-row">
+                <p className="px-2 py-1 text-[#B36EF4]"><FontAwesomeIcon icon={faCrown} color="#F7D115" /> 1</p>
             </button>
         </div>
     )
