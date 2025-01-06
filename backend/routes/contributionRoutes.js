@@ -1,7 +1,11 @@
 import express from "express";
+import dotenv from "dotenv";
 import { Contribution } from "../models/contributionModel.js";
 import { Goal } from "../models/goalModel.js";
+import { User } from "../models/userModel.js";
 
+dotenv.config();
+const ADMIN_ID = process.env.ADMIN_ID;
 const router = express.Router();
 
 // Route to get all contributions
@@ -60,11 +64,17 @@ router.post('/:id', async (request, response) => {
         const contribution = await Contribution.create(newContribution);
 
         const goal = await Goal.findById(id);
+        const user = await User.findById(ADMIN_ID);
+
         if (!goal) {
             return response.status(404).send({ message: 'Goal not found' });
         }
         goal.contributions.push(contribution._id);
+        user.contributionPoints += contribution.isMilestone ? 50 : 10;
+
+
         await goal.save();
+        await user.save();
 
         return response.status(201).send(contribution);
     } catch (error) {
@@ -94,6 +104,10 @@ router.delete('/:goalId/:id', async (request, response) => {
         if (!contribution) {
             return response.status(404).json({ message: "Contribution not found in the database." });
         }
+
+        const user = await User.findById(ADMIN_ID);
+        user.contributionPoints -= contribution.isMilestone ? 50 : 10;
+        await user.save();
 
         return response.status(200).json({
             message: "Contribution deleted successfully and removed from the goal.",

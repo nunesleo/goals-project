@@ -15,7 +15,21 @@ const Home = () => {
     const [goalName, setGoalName] = useState("");
     const [goalDescription, setGoalDescription] = useState("");
 
-    const handleSubmit = async () => {
+    useEffect(() => {
+        setLoading(true);
+        axios
+            .get('http://localhost:5555/goals')
+            .then((response) => {
+                setGoals(response.data.data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
+    }, []);
+
+    const handleSubmitGoal = async () => {
         const goalData = {
             name: goalName,
             description: goalDescription,
@@ -30,20 +44,6 @@ const Home = () => {
             alert("Failed to add goal. Please try again.");
         }
     };
-
-    useEffect(() => {
-        setLoading(true);
-        axios
-            .get('http://localhost:5555/goals')
-            .then((response) => {
-                setGoals(response.data.data);
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.log(error);
-                setLoading(false);
-            });
-    }, []);
 
     return (
         <>
@@ -72,7 +72,7 @@ const Home = () => {
                                 <textarea className="bg-gray-100 p-2" value={goalDescription}
                                     onChange={(e) => setGoalDescription(e.target.value)}></textarea>
                                 <div className="flex flex-grow"></div>
-                                <button onClick={() => handleSubmit()} className="bg-yellow-300 p-4 hover:-translate-y-2 transition duration-200 rounded-md shadow-md">Submit</button>
+                                <button onClick={() => handleSubmitGoal()} className="bg-yellow-300 p-4 hover:-translate-y-2 transition duration-200 rounded-md shadow-md">Submit</button>
                             </div>
                         </section>
                     </>

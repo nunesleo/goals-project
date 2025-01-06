@@ -6,13 +6,24 @@ const userSchema = mongoose.Schema(
             type: String,
             required: true,
         },
+        email: {
+            type: String,
+            required: true,
+            unique: true,
+        },
+        password: {
+            type: String,
+            required: true,
+        },
         contributionPoints: {
             type: Number,
             required: true,
+            default: 0,
         },
         crowns: {
             type: Number,
             required: true,
+            default: 0,
         },
         goals: [
             {

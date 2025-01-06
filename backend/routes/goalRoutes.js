@@ -1,8 +1,12 @@
 import express from "express";
+import dotenv from 'dotenv';
 import { Goal } from "../models/goalModel.js";
 import { Contribution } from "../models/contributionModel.js";
+import { User } from "../models/userModel.js";
 
 const router = express.Router();
+dotenv.config();
+const ADMIN_ID = process.env.ADMIN_ID;
 
 // Route to save a Goal
 router.post('/', async (request, response) => {
@@ -19,6 +23,11 @@ router.post('/', async (request, response) => {
         };
 
         const goal = await Goal.create(newGoal);
+
+        const user = await User.findById(ADMIN_ID);
+
+        user.goals.push(goal._id);
+        await user.save();
 
         return response.status(201).send(goal);
     } catch (error) {
@@ -62,21 +71,30 @@ router.delete('/:id', async (request, response) => {
         const { id } = request.params;
 
         const goal = await Goal.findById(id);
+        const user = await User.findById(ADMIN_ID);
 
         if (!goal) {
             return response.status(404).json({ message: "Goal not found." });
         }
 
         if (goal.contributions.length > 0) {
-            const contributionIds = goal.contributions.map(contribution => contribution._id);
-            
-            await Contribution.deleteMany({ _id: { $in: contributionIds } });
+            for (const contributionId of goal.contributions) {
+                const contribution = await Contribution.findById(contributionId);
+
+                user.contributionPoints -= contribution.isMilestone ? 50 : 10;
+
+                await Contribution.findByIdAndDelete(contributionId);
+            }
 
             goal.contributions = [];
             await goal.save();
         }
+        console.log("Checkpoint 2");
 
         await Goal.findByIdAndDelete(id);
+
+        user.goals.pull(id);
+        await user.save();
 
         return response.status(200).send({ message: "Goal and its contributions deleted successfully." });
     } catch (error) {
