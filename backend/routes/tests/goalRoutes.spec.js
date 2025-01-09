@@ -30,6 +30,19 @@ describe('GET /goals', () => {
       expect(response.body.count).toBe(mockGoals.length);
       expect(response.body.data).toEqual(mockGoals);
     });
+
+    it('should get a goal by id', async () => {
+      const mockGoals = 
+        { _id: "00001", name: 'Test Goal 1 to be found', description: 'Description 1 to be found' }
+      ;
+      vi.spyOn(Goal, 'findById').mockResolvedValue(mockGoals);
+  
+      const response = await request(app).get("/goals/00001");
+  
+      expect(response.status).toBe(200);
+      expect(response.body.name).toBe("Test Goal 1 to be found");
+      expect(response.body.description).toEqual("Description 1 to be found");
+    });
   });
   
 

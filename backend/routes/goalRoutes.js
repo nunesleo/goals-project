@@ -56,9 +56,9 @@ router.get('/:id', async (request, response) => {
     try {
         const { id } = request.params;
 
-        const goals = await Goal.findById(id);
+        const goal = await Goal.findById(id);
 
-        return response.status(200).json(goals);
+        return response.status(200).json(goal);
 
     } catch (error) {
         console.log(error.message);
