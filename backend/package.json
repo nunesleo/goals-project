@@ -16,5 +16,10 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.1",
     "mongoose": "^8.8.3"
+  },
+  "devDependencies": {
+    "mockingoose": "^2.16.2",
+    "supertest": "^7.0.0",
+    "vitest": "^2.1.8"
   }
 }

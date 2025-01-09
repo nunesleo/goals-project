@@ -80,20 +80,20 @@ const Home = () => {
 
                 <div className="w-full h-full py-10 flex flex-col items-center space-y-8">
                     {/* List of Goals */}
-                    <h1 className="font-bold text-5xl text-[#C04CFF]">GOALS!</h1>
+                    <h1 className="font-bold text-5xl text-[#A571E9]">GOALS!</h1>
                     <div className="w-1/4 text-gray-700 text-sm">
                         <p className="text-center font-semibold">Welcome, Leonardo!</p>
                         <p className="text-center">Consistency is the key to turning your dreams into reality. With this app, you'll track your daily achievements, stay motivated, and climb step by step toward your goals.</p>
                         <p className="text-center">Let’s make progress every day—together!</p>
                     </div>
-                    <div className="p-6 w-1/4 rounded-md shadow-md flex flex-col space-y-4 border-4 border-[#C04CFF]">
-                        <p className="font-bold text-[#C04CFF]">Your goals</p>
+                    <div className="p-6 w-1/4 rounded-md shadow-md flex flex-col space-y-4 border-4 border-[#A571E9]">
+                        <p className="font-bold text-[#A571E9]">Your goals</p>
 
                         {loading ? (
                             <Spinner />
                         ) : (
                             goals.map((goal) => (
-                                <div className="p-4 rounded-md shadow-md bg-[#B36EF4] hover:-translate-y-2 hover:rotate-1 transition duration-200">
+                                <div className="p-4 rounded-md shadow-md bg-[#A571E9] hover:-translate-y-2 hover:rotate-1 transition duration-200">
                                     <Link
                                         to={`/goals/details/${goal._id}`} // Link to goal details page
                                         className="font-semibold text-white"
@@ -105,7 +105,7 @@ const Home = () => {
                     </div>
 
                     {/* Add a Goal */}
-                    <button onClick={() => setModal(true)} className="p-4 w-1/4 rounded-md shadow-md flex flex-col space-y-4 bg-[#F7D115] hover:-translate-y-2 transition duration-200 z-20">
+                    <button onClick={() => setModal(true)} className="p-4 w-1/4 rounded-md shadow-md flex flex-col space-y-4 bg-[#EDCF41] hover:-translate-y-2 transition duration-200 z-20">
                         <p className="w-full text-center text-3xl font-bold text-white">+</p>
                     </button>
                 </div>

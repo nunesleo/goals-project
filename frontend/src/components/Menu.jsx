@@ -21,7 +21,7 @@ const Menu = () => {
     }, []);
 
     return (
-        <div className="w-full py-2 px-8 flex flex-row bg-[#B36EF4] shadow-md space-x-2">
+        <div className="w-full py-2 px-8 flex flex-row bg-[#A571E9] shadow-md space-x-2">
             <Link to="/">
                 <button className="flex flex-row items-center">
                     <FontAwesomeIcon icon={faHouse} color="white" />
@@ -30,10 +30,10 @@ const Menu = () => {
             </Link>
             <div className="flex flex-grow"></div>
             <button className="bg-white rounded-md flex flex-row">
-                <p className="px-2 py-1 text-[#B36EF4]"><FontAwesomeIcon icon={faDiceD6} color="#B36EF4" /> {contributionPoints}</p>
+                <p className="px-2 py-1 text-[#A571E9]"><FontAwesomeIcon icon={faDiceD6} color="#A571E9" /> {contributionPoints}</p>
             </button>
             <button className="bg-white rounded-md flex flex-row">
-                <p className="px-2 py-1 text-[#B36EF4]"><FontAwesomeIcon icon={faCrown} color="#F7D115" /> 1</p>
+                <p className="px-2 py-1 text-[#A571E9]"><FontAwesomeIcon icon={faCrown} color="#F7D115" /> 1</p>
             </button>
         </div>
     )

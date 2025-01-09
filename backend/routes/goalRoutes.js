@@ -89,7 +89,6 @@ router.delete('/:id', async (request, response) => {
             goal.contributions = [];
             await goal.save();
         }
-        console.log("Checkpoint 2");
 
         await Goal.findByIdAndDelete(id);
 

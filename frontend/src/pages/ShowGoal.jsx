@@ -133,7 +133,7 @@ const ShowGoal = () => {
                             <div className="fixed rounded-md h-1/2 w-1/2 p-8 bg-white shadow-md flex flex-col space-y-2 z-50">
                                 <div className="flex flex-row space-x-2">
                                     <h2 className="font-bold text-lg">Add a contribution</h2>
-                                    <div className={`px-2 rounded-md ${contributionIsMilestone ? 'bg-yellow-300' : 'bg-gray-200'} flex flex-row space-x-2 justify-center items-center`}>
+                                    <div className={`px-2 rounded-md ${contributionIsMilestone ? 'bg-[#EDCF41]' : 'bg-gray-200'} flex flex-row space-x-2 justify-center items-center`}>
                                         <label className="text-sm">Milestone</label>
                                         <input type="checkbox" onChange={(e) => setContributionIsMilestone(e.target.checked)}></input>
                                     </div>
@@ -152,7 +152,7 @@ const ShowGoal = () => {
 
 
                                 <div className="flex flex-grow"></div>
-                                <button onClick={() => handleSubmitNewContribution()} className="bg-yellow-300 p-4 hover:-translate-y-2 transition duration-200 rounded-md shadow-md">Submit</button>
+                                <button onClick={() => handleSubmitNewContribution()} className="bg-[#EDCF41] p-4 hover:-translate-y-2 transition duration-200 rounded-md shadow-md">Submit</button>
                             </div>
                         </section>
                     </>
@@ -188,7 +188,7 @@ const ShowGoal = () => {
 
                                 </textarea>
                                 <div className="flex flex-grow"></div>
-                                <button onClick={() => handleEditGoal()} className="bg-yellow-300 p-4 hover:-translate-y-2 transition duration-200 rounded-md shadow-md">Submit</button>
+                                <button onClick={() => handleEditGoal()} className="bg-[#EDCF41] p-4 hover:-translate-y-2 transition duration-200 rounded-md shadow-md">Submit</button>
                             </div>
                         </section>
                     </>
@@ -218,7 +218,7 @@ const ShowGoal = () => {
                             contributions.map((contribution) => {
                                 return (
 
-                                    <div onClick={() => handleDropdownClick(contribution._id)} key={contribution._id} className={`p-4 w-1/2 text-white rounded-md transition-all duration-2000 ${contribution._id === dropDownId ? 'py-6' : 'py-4'} shadow-md ${contribution.isMilestone ? 'bg-[#F7D115] text-gray-700' : 'bg-[#B36EF4]'}`}>
+                                    <div onClick={() => handleDropdownClick(contribution._id)} key={contribution._id} className={`p-4 w-1/2 text-white rounded-md transition-all duration-2000 ${contribution._id === dropDownId ? 'py-6' : 'py-4'} shadow-md ${contribution.isMilestone ? 'bg-[#EDCF41] text-gray-700' : 'bg-[#A571E9]'}`}>
                                         <strong>{contribution.name}</strong>
                                         <p>{contribution._id === dropDownId ? contribution.description : null}</p>
                                         <p className={`text-xs ${contribution._id === dropDownId ? 'mt-4' : null}`}>{contribution._id === dropDownId ? "Created at: " + new Date(contribution.createdAt).toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' }) : null} <button className={`${contribution._id === dropDownId ? 'inline-block hover:underline text-xs ml-2' : 'hidden'}`} onClick={() => handleDeleteContribution(contribution._id)}>{contribution._id === dropDownId ? "Delete" : null}</button></p>
@@ -231,7 +231,7 @@ const ShowGoal = () => {
                     </div>
 
                     {/* Add a Contribution */}
-                    <button onClick={() => setModal(true)} className="p-4 w-1/4 rounded-md shadow-md flex flex-col space-y-4 bg-[#F7D115] hover:-translate-y-2 transition duration-200 z-30">
+                    <button onClick={() => setModal(true)} className="p-4 w-1/4 rounded-md shadow-md flex flex-col space-y-4 bg-[#EDCF41] hover:-translate-y-2 transition duration-200 z-30">
                         <p className="w-full text-center text-lg font-bold">+</p>
                     </button>
                 </div>
