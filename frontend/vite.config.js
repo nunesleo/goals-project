@@ -14,4 +14,7 @@ export default defineConfig({
     globals: true,
     environment: 'node',
   },
+  server: {
+    host: true
+  }
 })
