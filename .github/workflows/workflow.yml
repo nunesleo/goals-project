@@ -15,5 +15,6 @@ jobs:
       - name: run install and test
         run: |
           npm install
+          npm install supertest
           npm run test
 

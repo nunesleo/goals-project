@@ -1,9 +1,7 @@
 import express from "express";
 import { User } from "../models/userModel.js";
-import dotenv from 'dotenv';
 
 const router = express.Router();
-dotenv.config();
 
 // Route to save a User
 router.post('/', async (request, response) => {

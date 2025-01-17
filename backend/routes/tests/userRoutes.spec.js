@@ -1,5 +1,4 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
-import dotenv from "dotenv";
 import request from 'supertest';
 import express from 'express';
 import userRouter from '../userRoutes';
@@ -8,8 +7,6 @@ import { User } from '../../models/userModel';
 const app = express();
 app.use(express.json());
 app.use('/users', userRouter);
-
-dotenv.config();
 
 describe('GET /users', () => {
   afterEach(() => {

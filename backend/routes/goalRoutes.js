@@ -1,5 +1,4 @@
 import express from "express";
-import dotenv from 'dotenv';
 import { Goal } from "../models/goalModel.js";
 import { Contribution } from "../models/contributionModel.js";
 import { User } from "../models/userModel.js";

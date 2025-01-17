@@ -1,5 +1,4 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
-import dotenv from "dotenv";
 import request from 'supertest';
 import express from 'express';
 import goalRouter from '../goalRoutes';
@@ -8,8 +7,6 @@ import { Goal } from '../../models/goalModel';
 const app = express();
 app.use(express.json());
 app.use('/goals', goalRouter);
-
-dotenv.config();
 
 describe('GET /goals', () => {
     afterEach(() => {
