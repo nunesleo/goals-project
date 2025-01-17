@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
-import { Link, useParams } from 'react-router-dom';
-
+import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
 {/*Import components*/ }

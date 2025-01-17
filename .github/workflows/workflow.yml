@@ -15,5 +15,8 @@ jobs:
       - name: run install and test
         run: |
           npm install
+          npm install supertest
+          npm install express
+          npm install --save-dev vitest
           npm run test
 

@@ -1,5 +1,4 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
-import dotenv from "dotenv";
 import request from 'supertest';
 import express from 'express';
 import userRouter from '../userRoutes';
@@ -9,9 +8,6 @@ const app = express();
 app.use(express.json());
 app.use('/users', userRouter);
 
-dotenv.config();
-const ADMIN_ID = process.env.ADMIN_ID;
-
 describe('GET /users', () => {
   afterEach(() => {
     vi.restoreAllMocks();
@@ -20,7 +16,7 @@ describe('GET /users', () => {
   it('should get the admin user successfully', async () => {
 
     vi.spyOn(User, 'findById').mockResolvedValue({
-      _id: ADMIN_ID,
+      _id: "677b314df4a42d7fa23648b6",
       name: 'John Doe',
       email: 'john@example.com',
       password: 'password123',
@@ -32,7 +28,7 @@ describe('GET /users', () => {
     expect(response.status).toBe(200);
     expect(response.body.name).toBe('John Doe');
     expect(response.body.email).toBe('john@example.com');
-    expect(response.body._id).toBe(ADMIN_ID);
+    expect(response.body._id).toBe("677b314df4a42d7fa23648b6");
   });
 });
 
@@ -44,7 +40,7 @@ describe('POST /users', () => {
 
   it('should create a user successfully', async () => {
     vi.spyOn(User, 'create').mockResolvedValue({
-      _id: ADMIN_ID,
+      _id: "677b314df4a42d7fa23648b6",
       name: 'John Doe',
       email: 'john@example.com',
       password: 'password123',
