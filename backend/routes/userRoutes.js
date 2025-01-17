@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 
 const router = express.Router();
 dotenv.config();
-const ADMIN_ID = process.env.ADMIN_ID;
 
 // Route to save a User
 router.post('/', async (request, response) => {
@@ -36,7 +35,7 @@ router.post('/', async (request, response) => {
 router.get('/', async (request, response) => {
     try {
 
-        const user = await User.findById(ADMIN_ID);
+        const user = await User.findById("677b314df4a42d7fa23648b6");
 
         return response.status(200).json(user);
 

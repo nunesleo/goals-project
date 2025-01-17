@@ -5,8 +5,6 @@ import { Contribution } from "../models/contributionModel.js";
 import { User } from "../models/userModel.js";
 
 const router = express.Router();
-dotenv.config();
-const ADMIN_ID = process.env.ADMIN_ID;
 
 // Route to save a Goal
 router.post('/', async (request, response) => {
@@ -24,7 +22,7 @@ router.post('/', async (request, response) => {
 
         const goal = await Goal.create(newGoal);
 
-        const user = await User.findById(ADMIN_ID);
+        const user = await User.findById("677b314df4a42d7fa23648b6");
 
         user.goals.push(goal._id);
         await user.save();
@@ -71,7 +69,7 @@ router.delete('/:id', async (request, response) => {
         const { id } = request.params;
 
         const goal = await Goal.findById(id);
-        const user = await User.findById(ADMIN_ID);
+        const user = await User.findById("677b314df4a42d7fa23648b6");
 
         if (!goal) {
             return response.status(404).json({ message: "Goal not found." });

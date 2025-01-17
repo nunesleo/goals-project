@@ -10,7 +10,6 @@ app.use(express.json());
 app.use('/users', userRouter);
 
 dotenv.config();
-const ADMIN_ID = process.env.ADMIN_ID;
 
 describe('GET /users', () => {
   afterEach(() => {
@@ -20,7 +19,7 @@ describe('GET /users', () => {
   it('should get the admin user successfully', async () => {
 
     vi.spyOn(User, 'findById').mockResolvedValue({
-      _id: ADMIN_ID,
+      _id: "677b314df4a42d7fa23648b6",
       name: 'John Doe',
       email: 'john@example.com',
       password: 'password123',
@@ -44,7 +43,7 @@ describe('POST /users', () => {
 
   it('should create a user successfully', async () => {
     vi.spyOn(User, 'create').mockResolvedValue({
-      _id: ADMIN_ID,
+      _id: "677b314df4a42d7fa23648b6",
       name: 'John Doe',
       email: 'john@example.com',
       password: 'password123',

@@ -10,7 +10,6 @@ app.use(express.json());
 app.use('/goals', goalRouter);
 
 dotenv.config();
-const ADMIN_ID = process.env.ADMIN_ID;
 
 describe('GET /goals', () => {
     afterEach(() => {

@@ -4,8 +4,6 @@ import { Contribution } from "../models/contributionModel.js";
 import { Goal } from "../models/goalModel.js";
 import { User } from "../models/userModel.js";
 
-dotenv.config();
-const ADMIN_ID = process.env.ADMIN_ID;
 const router = express.Router();
 
 // Route to get all contributions
@@ -64,7 +62,7 @@ router.post('/:id', async (request, response) => {
         const contribution = await Contribution.create(newContribution);
 
         const goal = await Goal.findById(id);
-        const user = await User.findById(ADMIN_ID);
+        const user = await User.findById("677b314df4a42d7fa23648b6");
 
         if (!goal) {
             return response.status(404).send({ message: 'Goal not found' });
@@ -105,7 +103,7 @@ router.delete('/:goalId/:id', async (request, response) => {
             return response.status(404).json({ message: "Contribution not found in the database." });
         }
 
-        const user = await User.findById(ADMIN_ID);
+        const user = await User.findById("677b314df4a42d7fa23648b6");
         user.contributionPoints -= contribution.isMilestone ? 50 : 10;
         await user.save();
 
