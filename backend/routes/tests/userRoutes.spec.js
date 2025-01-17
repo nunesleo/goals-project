@@ -31,7 +31,7 @@ describe('GET /users', () => {
     expect(response.status).toBe(200);
     expect(response.body.name).toBe('John Doe');
     expect(response.body.email).toBe('john@example.com');
-    expect(response.body._id).toBe(ADMIN_ID);
+    expect(response.body._id).toBe("677b314df4a42d7fa23648b6");
   });
 });
 
