@@ -25,9 +25,9 @@ router.get('/:id', async (request, response) => {
     try {
         const { id } = request.params;
 
-        const contributions = await Contribution.findById(id);
+        const contribution = await Contribution.findById(id);
 
-        return response.status(200).json(contributions);
+        return response.status(200).json(contribution);
 
     } catch (error) {
         console.log(error.message);
