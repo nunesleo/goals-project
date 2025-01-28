@@ -1,12 +1,19 @@
 import React from "react";
 
-const ListOfContributions = ({goal, contributions,setModalEdit, handleDropdownClick, dropDownId, setModal}) => {
+const ListOfContributions = ({ goal, contributions, setModalEdit, handleDropdownClick, dropDownId, setModal, setIsComplete, isComplete, setToUpdate }) => {
     return (
         <div className="p-8 w-full max-w-4xl mx-auto flex flex-col space-y-4 z-10 text-gray-700">
             <div className="flex flex-row items-center space-x-2">
                 <h1 className="text-2xl font-bold">{goal.name}</h1>
                 <p className="hover:underline text-sm" onClick={() => setModalEdit(true)}>Edit</p>
             </div>
+
+            <div>
+                <button onClick={() => { setToUpdate(true) }} className={`px-2 py-1 ${isComplete ? 'bg-[#EDCF41]' : 'bg-gray-200'} hover:bg-[#EDCF41] rounded-md transition duration-200`}>
+                    Goal Completed
+                </button>
+            </div>
+
 
             <div>
                 {goal.description.split('\n').map((para, index) => (
@@ -37,7 +44,7 @@ const ListOfContributions = ({goal, contributions,setModalEdit, handleDropdownCl
                 )}
             </div>
 
-             <button onClick={() => setModal(true)} className="p-4 w-1/4 rounded-md shadow-md flex flex-col space-y-4 bg-[#EDCF41] hover:-translate-y-2 transition duration-200 z-30">
+            <button onClick={() => setModal(true)} className="p-4 w-1/4 rounded-md shadow-md flex flex-col space-y-4 bg-[#EDCF41] hover:-translate-y-2 transition duration-200 z-30">
                 <p className="w-full text-center text-lg font-bold">+</p>
             </button>
         </div>

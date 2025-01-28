@@ -8,12 +8,14 @@ import axios from 'axios';
 const Menu = () => {
 
     const [contributionPoints, setContributionPoints] = useState(0);
+    const [crowns, setCrowns] = useState(0);
 
     useEffect(() => {
         axios
             .get("http://localhost:5555/users/")
             .then((response) => {
                 setContributionPoints(response.data.contributionPoints);
+                setCrowns(response.data.crowns);
             })
             .catch((error) => {
                 console.log(error);
@@ -33,7 +35,7 @@ const Menu = () => {
                 <p className="px-2 py-1 text-[#A571E9]"><FontAwesomeIcon icon={faDiceD6} color="#A571E9" /> {contributionPoints}</p>
             </button>
             <button className="bg-white rounded-md flex flex-row">
-                <p className="px-2 py-1 text-[#A571E9]"><FontAwesomeIcon icon={faCrown} color="#F7D115" /> 1</p>
+                <p className="px-2 py-1 text-[#A571E9]"><FontAwesomeIcon icon={faCrown} color="#F7D115" /> {crowns}</p>
             </button>
         </div>
     )

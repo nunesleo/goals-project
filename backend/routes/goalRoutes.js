@@ -102,18 +102,28 @@ router.delete('/:id', async (request, response) => {
 //Update a goal
 router.put('/:id', async (request, response) => {
     try {
-        if (!request.body.name ||
-            !request.body.description) {
-            return response.status(400).send({
-                message: "Send all required fields: name, description"
-            });
-        }
 
         const { id } = request.params;
         const result = await Goal.findByIdAndUpdate(id, request.body);
+        console.log(request.body);
 
         if (!result) {
             return response.status(404).json({ message: "Goal not found." });
+        }
+
+        if (request.body.isComplete == true) {
+            const user = await User.findById("677b314df4a42d7fa23648b6");
+            user.crowns += 1;
+            
+            await user.save()
+
+        }
+
+        if (request.body.isComplete == false && !request.body.name && !request.body.description) {
+            const user = await User.findById("677b314df4a42d7fa23648b6");
+            user.crowns -= 1;
+            
+            await user.save()
         }
 
         return response.status(200).send({ message: "Goal updates successfully." });

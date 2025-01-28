@@ -27,6 +27,21 @@ const ShowGoal = () => {
     {/* States edit */ }
     const [goalName, setGoalName] = useState("");
     const [goalDescription, setGoalDescription] = useState("");
+    const [isComplete, setIsComplete] = useState(false)
+    const [toUpdate, setToUpdate] = useState(false)
+    var isCompleted = false
+
+    useEffect(() => {
+        const updateState = () => {
+            if (toUpdate) {
+                console.log("isCompleted: ", isCompleted);
+                isCompleted = isComplete ? false : true;
+                handleCompleteGoal();
+            }
+        };
+
+        updateState();
+    }, [toUpdate]);
 
     useEffect(() => {
         setLoading(true);
@@ -37,6 +52,8 @@ const ShowGoal = () => {
                 const contributionRequests = response.data.contributions.map((contributionId) =>
                     axios.get(`http://localhost:5555/contributions/${contributionId}`)
                 );
+                setIsComplete(response.data.isComplete)
+                isCompleted = response.data.isComplete
 
                 Promise.all(contributionRequests)
                     .then((contributionResponses) => {
@@ -87,9 +104,26 @@ const ShowGoal = () => {
             await axios.delete(`http://localhost:5555/goals/${goal._id}`);
             navigate("/");
         } catch (error) {
-            console.error("Error adding contribution:", error);
+            console.error("Error deleting contribution:", error);
             alert("Failed to delete goal. Please try again.");
         }
+    }
+
+    const handleCompleteGoal = async () => {
+        const goalData = {
+            isComplete: isCompleted,
+        };
+
+        setToUpdate(false);
+        window.location.reload();
+        try {
+            await axios.put(`http://localhost:5555/goals/${goal._id}`, goalData);
+        } catch (error) {
+            console.error("Error updating goal:", error);
+            alert("Failed to update goal. Please try again.");
+        }
+
+
     }
 
     const handleEditGoal = async () => {
@@ -155,6 +189,9 @@ const ShowGoal = () => {
                     handleDropdownClick={handleDropdownClick}
                     dropDownId={dropDownId}
                     setModal={setModal}
+                    setIsComplete={setIsComplete}
+                    isComplete={isComplete}
+                    setToUpdate={setToUpdate}
                 />
             </section>
         </>

@@ -16,6 +16,10 @@ const goalSchema = mongoose.Schema(
                 ref: "Contribution",
             },
         ],
+        isComplete: {
+            type: Boolean,
+            default: false,
+        }
     },
     {
         timestamps: true,
