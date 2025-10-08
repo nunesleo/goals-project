@@ -1,14 +1,13 @@
 import React from "react";
 
+{/*This component is used on the Home page*/ }
 const AddGoalModal = ({ isOpen, onClose, goalName, setGoalName, goalDescription, setGoalDescription, onSubmit }) => {
     if (!isOpen) {
         return null;
     }
     return (
         <>
-            <section className="fixed bg-black opacity-50 w-full h-full z-30">
-            </section>
-
+            <section className="fixed inset-0 bg-[#4a4a4a] opacity-30 w-full min-h-screen z-30"></section>
             <section className="fixed w-full h-full flex items-center justify-center z-40">
                 <div className="fixed rounded-md h-1/2 w-1/2 p-8 bg-white border-md shadow-md flex flex-col space-y-2 z-50">
                     <div className="flex flex-row">

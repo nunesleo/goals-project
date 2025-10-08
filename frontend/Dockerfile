@@ -1,9 +1,11 @@
-FROM node:18-bookworm-slim
+FROM node:18
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm ci
+RUN npm install
 
 COPY . .
+
+CMD ["npm", "run", "dev"]

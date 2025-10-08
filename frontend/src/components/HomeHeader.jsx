@@ -1,5 +1,6 @@
 import React from "react";
 
+{/*This component is used on the Home page*/ }
 const HomeHeader = () => {
     return (
         <>
@@ -11,7 +12,6 @@ const HomeHeader = () => {
             </div>
         </>
     )
-
 }
 
 export default HomeHeader

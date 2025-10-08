@@ -3,16 +3,23 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCrown, faDiceD6, faHouse } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-
-const Menu = () => {
-
+{/*This component is used on all pages*/ }
+const Menu = ({ setToken }) => {
+    const navigate = useNavigate();
     const [contributionPoints, setContributionPoints] = useState(0);
     const [crowns, setCrowns] = useState(0);
+    const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
 
     useEffect(() => {
+        const token = localStorage.getItem("token");
         axios
-            .get("http://localhost:5555/users/")
+            .get("http://localhost:5555/users/", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
             .then((response) => {
                 setContributionPoints(response.data.contributionPoints);
                 setCrowns(response.data.crowns);
@@ -22,23 +29,54 @@ const Menu = () => {
             });
     }, []);
 
+    useEffect(() => {
+        const handleStorageChange = () => {
+            setIsLoggedIn(!!localStorage.getItem("token"));
+        };
+
+        window.addEventListener("storage", handleStorageChange);
+        return () => window.removeEventListener("storage", handleStorageChange);
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        setToken(null);
+        window.location.reload();
+        navigate("/login");
+    };
+
     return (
-        <div className="w-full py-2 px-8 flex flex-row bg-[#A571E9] shadow-md space-x-2">
-            <Link to="/">
-                <button className="flex flex-row items-center">
-                    <FontAwesomeIcon icon={faHouse} color="white" />
-                    <p className="px-2 py-1 hover:underline text-white"> Home</p>
+        <section className="w-full flex justify-center z-10">
+            <div className="mt-5 w-1/2 rounded-lg py-2 px-8 flex flex-row bg-[#A571E9] shadow-md space-x-2 hover:bg-[#b382f4] hover:shadow-none transition duration-100">
+                <Link to="/">
+                    <button className="flex flex-row items-center">
+                        <FontAwesomeIcon icon={faHouse} color="white" />
+                        <p className="px-2 py-1 hover:underline text-white">Home</p>
+                    </button>
+                </Link>
+                <Link to="/analysis">
+                    <button className="flex flex-row items-center">
+                        <FontAwesomeIcon icon={faHouse} color="white" />
+                        <p className="px-2 py-1 hover:underline text-white">Analysis</p>
+                    </button>
+                </Link>
+                <div className="flex flex-grow"></div>
+                <button className={`bg-white rounded-md flex ${isLoggedIn ? 'block' : 'hidden'} flex-row`}>
+                    <p className="px-2 py-1 text-[#A571E9]">
+                        <FontAwesomeIcon icon={faDiceD6} color="#A571E9" /> {contributionPoints}
+                    </p>
                 </button>
-            </Link>
-            <div className="flex flex-grow"></div>
-            <button className="bg-white rounded-md flex flex-row">
-                <p className="px-2 py-1 text-[#A571E9]"><FontAwesomeIcon icon={faDiceD6} color="#A571E9" /> {contributionPoints}</p>
-            </button>
-            <button className="bg-white rounded-md flex flex-row">
-                <p className="px-2 py-1 text-[#A571E9]"><FontAwesomeIcon icon={faCrown} color="#F7D115" /> {crowns}</p>
-            </button>
-        </div>
-    )
-}
+                <button className={`bg-white rounded-md flex ${isLoggedIn ? 'block' : 'hidden'} flex-row`}>
+                    <p className="px-2 py-1 text-[#A571E9]">
+                        <FontAwesomeIcon icon={faCrown} color="#F7D115" /> {crowns}
+                    </p>
+                </button>
+                <button onClick={handleLogout} className="text-white px-2">
+                    Logout
+                </button>
+            </div>
+        </section>
+    );
+};
 
 export default Menu

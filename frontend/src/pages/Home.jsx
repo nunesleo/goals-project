@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios';
 
 {/*Import components*/ }
-import Menu from "../components/Menu.jsx";
-import AddGoalModal from "../components/AddGoalModal.jsx";
+import AddGoalModal from "../components/modal/AddGoalModal.jsx";
 import ListOfGoals from "../components/ListOfGoals.jsx";
 import HomeHeader from "../components/HomeHeader.jsx";
 
@@ -11,6 +10,7 @@ const Home = () => {
     const [isModalOpen, setModal] = useState(false);
     const [goals, setGoals] = useState([]);
     const [loading, setLoading] = useState(false);
+    //const [aiSuggestion, setAiSuggestion] = useState("");
 
     {/* States for submit functionality */ }
     const [goalName, setGoalName] = useState("");
@@ -18,14 +18,26 @@ const Home = () => {
 
     useEffect(() => {
         setLoading(true);
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("You are not authenticated. Please log in.");
+            setLoading(false);
+            return;
+        }
+    
         axios
-            .get('http://localhost:5555/goals')
+            .get('http://localhost:5555/goals', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
             .then((response) => {
                 setGoals(response.data.data);
+                console.log(response.data.data);
                 setLoading(false);
             })
             .catch((error) => {
-                console.log(error);
+                console.log("Get Goals API: ", error);
                 setLoading(false);
             });
     }, []);
@@ -37,7 +49,26 @@ const Home = () => {
         };
 
         try {
-            await axios.post("http://localhost:5555/goals", goalData);
+            const token = localStorage.getItem("token");
+            if (!token) {
+                alert("You are not authenticated. Please log in.");
+                return;
+            }
+
+            await axios.post("http://localhost:5555/goals", goalData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+            });
+
+            // const suggestion = response.data.suggestion;
+
+            // if (suggestion) {
+            //     console.log("AI Suggestion:", suggestion);
+            //     setAiSuggestion(suggestion)
+            // }
+
             setModal(false);
             window.location.reload();
         } catch (error) {
@@ -45,11 +76,10 @@ const Home = () => {
             alert("Failed to add goal. Please try again.");
         }
     };
-
+    
     return (
         <>
             <section className="w-full min-h-screen flex flex-col items-center">
-                <Menu />
                 <AddGoalModal
                     isOpen={isModalOpen}
                     onClose={() => setModal(false)}

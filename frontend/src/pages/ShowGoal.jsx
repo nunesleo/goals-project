@@ -4,9 +4,8 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
 {/*Import components*/ }
-import Menu from "../components/Menu";
-import EditGoalModal from "../components/EditGoalModal";
-import AddContributionModal from "../components/AddContributionModal";
+import EditGoalModal from "../components/modal/EditGoalModal";
+import AddContributionModal from "../components/modal/AddContributionModal";
 import ListOfContributions from "../components/ListOfContributions";
 
 const ShowGoal = () => {
@@ -45,12 +44,27 @@ const ShowGoal = () => {
 
     useEffect(() => {
         setLoading(true);
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("You are not authenticated. Please log in.");
+            setLoading(false);
+            return;
+        }
         axios
-            .get(`http://localhost:5555/goals/${id}`)
+            .get(`http://localhost:5555/goals/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
             .then((response) => {
                 setGoal(response.data);
                 const contributionRequests = response.data.contributions.map((contributionId) =>
-                    axios.get(`http://localhost:5555/contributions/${contributionId}`)
+                    axios.get(`http://localhost:5555/contributions/${contributionId}`, {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+
+                    })
                 );
                 setIsComplete(response.data.isComplete)
                 isCompleted = response.data.isComplete
@@ -72,6 +86,7 @@ const ShowGoal = () => {
     }, [id]);
 
     const handleSubmitNewContribution = async () => {
+        const token = localStorage.getItem("token");
         const contributionData = {
             name: contributionName,
             description: contributionDescription,
@@ -79,7 +94,15 @@ const ShowGoal = () => {
         };
 
         try {
-            await axios.post(`http://localhost:5555/contributions/${goal._id}`, contributionData);
+            await axios.post(
+                `http://localhost:5555/contributions/${goal._id}`,
+                contributionData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
             setModal(false);
             window.location.reload();
         } catch (error) {
@@ -89,8 +112,15 @@ const ShowGoal = () => {
     };
 
     const handleDeleteContribution = async (contributionId) => {
+        const token = localStorage.getItem("token");
         try {
-            await axios.delete(`http://localhost:5555/contributions/${goal._id}/${contributionId}`);
+            await axios.delete(`http://localhost:5555/contributions/${goal._id}/${contributionId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                }
+            );
             window.location.reload();
         } catch (error) {
             console.error("Error adding contribution:", error);
@@ -99,9 +129,15 @@ const ShowGoal = () => {
     }
 
     const handleDeleteGoal = async () => {
-
+        const token = localStorage.getItem("token");
         try {
-            await axios.delete(`http://localhost:5555/goals/${goal._id}`);
+            await axios.delete(`http://localhost:5555/goals/${goal._id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                },
+            );
             navigate("/");
         } catch (error) {
             console.error("Error deleting contribution:", error);
@@ -110,6 +146,7 @@ const ShowGoal = () => {
     }
 
     const handleCompleteGoal = async () => {
+        const token = localStorage.getItem("token");
         const goalData = {
             isComplete: isCompleted,
         };
@@ -117,28 +154,39 @@ const ShowGoal = () => {
         setToUpdate(false);
         window.location.reload();
         try {
-            await axios.put(`http://localhost:5555/goals/${goal._id}`, goalData);
+            await axios.put(`http://localhost:5555/goals/${goal._id}`, goalData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                }
+            );
         } catch (error) {
             console.error("Error updating goal:", error);
             alert("Failed to update goal. Please try again.");
         }
-
-
     }
 
     const handleEditGoal = async () => {
+        const token = localStorage.getItem("token");
         const goalData = {
             name: goalName,
             description: goalDescription,
         };
 
         try {
-            await axios.put(`http://localhost:5555/goals/${goal._id}`, goalData);
+            await axios.put(`http://localhost:5555/goals/${goal._id}`, goalData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                }
+            );
             setModal(false);
             window.location.reload();
         } catch (error) {
-            console.error("Error adding goal:", error);
-            alert("Failed to add goal. Please try again.");
+            console.error("Error editing goal:", error);
+            alert("Failed to edit goal. Please try again.");
         }
     };
 
@@ -157,7 +205,6 @@ const ShowGoal = () => {
     return (
         <>
             <section className="w-full min-h-screen flex flex-col items-center">
-                <Menu />
                 <AddContributionModal
                     isOpen={isModalOpen}
                     onClose={() => setModal(false)}
@@ -192,6 +239,7 @@ const ShowGoal = () => {
                     setIsComplete={setIsComplete}
                     isComplete={isComplete}
                     setToUpdate={setToUpdate}
+                    handleDeleteContribution={handleDeleteContribution}
                 />
             </section>
         </>

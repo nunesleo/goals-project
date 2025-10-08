@@ -31,6 +31,12 @@ const userSchema = mongoose.Schema(
                 ref: "Goal",
             },
         ],
+        contributions: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Contribution",
+            }
+        ]
     },
     {
         timestamps: true,

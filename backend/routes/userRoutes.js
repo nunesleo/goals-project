@@ -6,7 +6,7 @@ const router = express.Router();
 // Route to save a User
 router.post('/', async (request, response) => {
     try {
-        if (!request.body.name || 
+        if (!request.body.name ||
             !request.body.email ||
             !request.body.password) {
             return response.status(400).send({
@@ -32,16 +32,13 @@ router.post('/', async (request, response) => {
 //Get admin user
 router.get('/', async (request, response) => {
     try {
-
         const user = await User.findById("677b314df4a42d7fa23648b6");
 
         return response.status(200).json(user);
-
     } catch (error) {
         console.log(error.message);
         response.status(500).send({ message: error.message });
     }
-})
-
+});
 
 export default router;

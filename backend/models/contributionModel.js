@@ -14,6 +14,16 @@ const contributionSchema = mongoose.Schema(
             type: Boolean,
             required: true
         },
+        goal: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Goal",
+            required: true
+        },
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            required: true
+        }
     },
     {
         timestamps: true,
