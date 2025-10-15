@@ -151,8 +151,6 @@ const ShowGoal = () => {
             isComplete: isCompleted,
         };
 
-        setToUpdate(false);
-        window.location.reload();
         try {
             await axios.put(`http://localhost:5555/goals/${goal._id}`, goalData,
                 {
@@ -165,6 +163,8 @@ const ShowGoal = () => {
             console.error("Error updating goal:", error);
             alert("Failed to update goal. Please try again.");
         }
+        setToUpdate(false);
+        window.location.reload();
     }
 
     const handleEditGoal = async () => {

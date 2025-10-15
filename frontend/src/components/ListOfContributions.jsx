@@ -1,4 +1,5 @@
 import React from "react";
+import Milestone from "./Milestone";
 
 {/*This component is used on the ShowGoal page*/ }
 const ListOfContributions = ({ goal, contributions, setModalEdit, handleDropdownClick, dropDownId, setModal, setIsComplete, isComplete, setToUpdate, handleDeleteContribution }) => {
@@ -33,8 +34,14 @@ const ListOfContributions = ({ goal, contributions, setModalEdit, handleDropdown
                     contributions.map((contribution) => {
                         return (
 
-                            <div onClick={() => handleDropdownClick(contribution._id)} key={contribution._id} className={`p-4 w-1/2 text-white rounded-md transition-all duration-2000 ${contribution._id === dropDownId ? 'py-6' : 'py-4'} shadow-md ${contribution.isMilestone ? 'bg-[#EDCF41] text-gray-700' : 'bg-[#A571E9]'}`}>
-                                <strong>{contribution.name}</strong>
+                            <div onClick={() => handleDropdownClick(contribution._id)} key={contribution._id} className={`p-4 w-1/2 text-white rounded-md transition-all duration-2000 ${contribution._id === dropDownId ? 'py-6' : 'py-4'} shadow-md bg-[#A571E9]`}>
+                                <div className="flex flex-row justify-center">
+                                    <strong>{contribution.name}</strong>
+                                    <div className="flex flex-grow"></div>
+                                    {contribution.isMilestone ? (
+                                        <Milestone />
+                                    ) : null}
+                                </div>
                                 <p>{contribution._id === dropDownId ? contribution.description : null}</p>
                                 <p className={`text-xs ${contribution._id === dropDownId ? 'mt-4' : null}`}>
                                     {contribution._id === dropDownId ? "Created at: " + new Date(contribution.createdAt).toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' }) : null}
