@@ -3,7 +3,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 {/*This component is used on the ShowGoal page*/ }
-const EditGoalModal = ({isOpen, goal, goalName, setGoalName, goalDescription, setGoalDescription, onSubmit, handleDeleteGoal, setModalEdit,}) => {
+const EditGoalModal = ({isOpen, goal, goalName, setGoalName, goalDescription, setGoalDescription, onSubmit, handleDeleteGoal, setModalEdit}) => {
     if (!isOpen) {
         return null;
     }

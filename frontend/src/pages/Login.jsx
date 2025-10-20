@@ -32,7 +32,10 @@ const Login = ({ setToken }) => {
     };
 
     return (
-        <section className="min-h-screen w-full flex flex-col items-center justify-center">
+        <section className="mt-6 min-h-screen flex flex-col items-center w-full space-y-4">
+            <h1 className="font-bold text-5xl text-[#A571E9]">GOALS!</h1>
+            <p className="text-center w-1/3">Consistency is the key to turning your dreams into reality. With this app, you'll track your daily achievements, stay motivated, and climb step by step toward your goals.</p>
+            <p className="text-center w-1/3">Let’s make progress every day—together!</p>
             <div className="p-4 rounded-md border-4 flex flex-col border-[#A571E9] w-1/3 space-y-4">
                 <h2 className="font-bold">Login</h2>
                 <form onSubmit={handleLogin} className="flex flex-col space-y-4">

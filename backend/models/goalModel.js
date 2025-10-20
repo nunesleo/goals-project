@@ -20,6 +20,9 @@ const goalSchema = mongoose.Schema(
             type: Boolean,
             default: false,
         },
+        aiSuggestion: {
+            type: String,
+        },
         user: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",

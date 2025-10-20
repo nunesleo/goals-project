@@ -5,9 +5,11 @@ import ShowGoal from './pages/ShowGoal.jsx';
 import Login from "./pages/Login.jsx";
 import Menu from "./components/Menu.jsx";
 import Analysis from "./pages/Analysis.jsx";
+import HelpModal from "./components/modal/HelpModal.jsx";
 
 const App = () => {
   const [token, setToken] = useState(localStorage.getItem("token"));
+  const [isHelpModalOpen, setModalHelp] = useState(false);
 
   useEffect(() => {
     if (token) {
@@ -29,6 +31,7 @@ const App = () => {
         />
         <Route path="/analysis" element={token ? <Analysis /> : <Navigate to="/login" />} />
       </Routes>
+      <HelpModal isHelpModalOpen={isHelpModalOpen} setModalHelp={setModalHelp} />
     </>
   );
 };
