@@ -8,7 +8,7 @@ const HelpModal = ({ isHelpModalOpen, setModalHelp }) => {
             {!isHelpModalOpen && (
                 <button
                     onClick={() => setModalHelp(true)}
-                    className="fixed bg-slate-100 border-2 border-[#A571E9] bottom-4 right-4 rounded-full p-4 shadow-md hover:bg-slate-200 z-40"
+                    className="fixed bg-slate-100 border-2 border-[#A571E9] bottom-4 right-4 rounded-full p-4 shadow-md hover:bg-slate-200 z-5"
                 >
                     <FontAwesomeIcon icon={faQuestion} color="#A571E9" />
                 </button>
@@ -16,7 +16,7 @@ const HelpModal = ({ isHelpModalOpen, setModalHelp }) => {
 
             {isHelpModalOpen && (
                 <>
-                    <section className="fixed inset-0 bg-[#4a4a4a] opacity-30 w-full h-full z-30"></section>
+                    <section className="fixed inset-0 bg-[#494949] opacity-50 w-full h-full z-30"></section>
                     <section className="fixed inset-0 flex items-center justify-center z-40">
                         <div className="rounded-md h-2/3 w-1/2 p-8 bg-white shadow-md flex flex-col space-y-2 z-50 overflow-y-auto">
                             <div className="flex items-center space-x-2">

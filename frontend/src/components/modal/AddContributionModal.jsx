@@ -7,8 +7,8 @@ const AddContributionModal = ({ isOpen, onClose, contributionIsMilestone, setCon
     }
     return (
         <>
-            <section className="fixed inset-0 bg-[#4a4a4a] opacity-30 w-full min-h-screen z-30"></section>
-            <section className="fixed w-full h-full flex items-center justify-center z-40">
+            <section className="fixed inset-0 bg-[#494949] opacity-50 w-full min-h-screen z-30"></section>
+            <section className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-40">
                 <div className="fixed rounded-md h-1/2 w-1/2 p-8 bg-white shadow-md flex flex-col space-y-2 z-50">
                     <div className="flex flex-row space-x-2">
                         <h2 className="font-bold text-lg">Add a contribution</h2>

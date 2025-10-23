@@ -29,7 +29,7 @@ const ShowGoal = () => {
     {/* States edit */ }
     const [goalName, setGoalName] = useState("");
     const [goalDescription, setGoalDescription] = useState("");
-    let aiSuggestion = "test";
+    let aiSuggestion = "";
     const [isComplete, setIsComplete] = useState(false)
     const [toUpdate, setToUpdate] = useState(false)
     var isCompleted = false
@@ -143,6 +143,7 @@ const ShowGoal = () => {
                 },
             );
             navigate("/");
+            window.location.reload();
         } catch (error) {
             console.error("Error deleting contribution:", error);
             alert("Failed to delete goal. Please try again.");
