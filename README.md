@@ -10,7 +10,7 @@ See how much you have grown since you started.
 - Track progress on the Analysis tab
 
 ## Demo Video
-[![Watch Demo](https://raw.githubusercontent.com/nunesleo/goals-project/main/DemoVideoThumbnail.png)](https://raw.githubusercontent.com/nunesleo/goals-project/main/DemoVideo.mp4)
+[![Watch Demo](https://raw.githubusercontent.com/nunesleo/goals-project/main/DemoVideoThumbnail.png)](https://github.com/nunesleo/goals-project/blob/main/DemoVideo.mp4)
 
 ## Author
 Leo Nunes <https://github.com/nunesleo>
